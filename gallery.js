@@ -1,3 +1,7 @@
+const SANITY_PROJECT_ID = "g2n6h8e3";
+const SANITY_DATASET = "gallery";
+const SANITY_API_VERSION = "v2023-10-01";
+
 document.addEventListener("DOMContentLoaded", () => {
   const grid = document.getElementById("gallery-grid");
   const emptyState = document.getElementById("gallery-empty");
@@ -10,41 +14,69 @@ document.addEventListener("DOMContentLoaded", () => {
     status.textContent = message;
   };
 
-  fetch("gallery-data.json", { cache: "no-store" })
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error(`Failed to load gallery data (${response.status})`);
-      }
-      return response.json();
-    })
-    .then(({ items = [], generatedAt }) => {
-      const timestamp = generatedAt ? new Date(generatedAt) : null;
-      if (timestamp) {
-        setStatus(
-          `Updated ${timestamp.toLocaleDateString(undefined, {
-            year: "numeric",
-            month: "short",
-            day: "numeric",
-          })}`
-        );
-      }
+  const renderItems = (items, generatedAt) => {
+    const timestamp = generatedAt ? new Date(generatedAt) : null;
+    if (timestamp) {
+      setStatus(
+        `Updated ${timestamp.toLocaleDateString(undefined, {
+          year: "numeric",
+          month: "short",
+          day: "numeric",
+        })}`
+      );
+    }
 
-      if (!items.length) {
-        if (emptyState) emptyState.hidden = false;
-        return;
-      }
+    if (!items.length) {
+      if (emptyState) emptyState.hidden = false;
+      return;
+    }
 
-      grid.innerHTML = "";
-      items.forEach((item) => {
-        grid.appendChild(renderCard(item));
-      });
-    })
-    .catch((error) => {
+    grid.innerHTML = "";
+    items.forEach((item) => grid.appendChild(renderCard(item)));
+  };
+
+  const loadGallery = async () => {
+    try {
+      const { items, generatedAt } = await fetchSanityGallery();
+      renderItems(items, generatedAt);
+    } catch (error) {
       console.error(error);
       setStatus("Gallery is updating — please check back shortly.");
       if (emptyState) emptyState.hidden = false;
-    });
+    }
+  };
+
+  loadGallery();
 });
+
+async function fetchSanityGallery() {
+  const query =
+    '*[_type == "galleryItem"]|order(coalesce(order, 1e12) asc, _updatedAt desc){_id, title, description, "image": image.asset->url, featured, order, _updatedAt}';
+  const url = `https://${SANITY_PROJECT_ID}.api.sanity.io/${SANITY_API_VERSION}/data/query/${SANITY_DATASET}?query=${encodeURIComponent(
+    query
+  )}`;
+
+  const res = await fetch(url, { cache: "no-store" });
+  if (!res.ok) {
+    throw new Error(`Sanity request failed (${res.status})`);
+  }
+
+  const data = await res.json();
+  if (!data || !data.result) {
+    return { items: [], generatedAt: new Date().toISOString() };
+  }
+
+  const items = data.result.map((item) => ({
+    title: item.title,
+    description: item.description,
+    image: item.image,
+    featured: item.featured,
+    order: item.order,
+    updatedAt: item._updatedAt,
+  }));
+
+  return { items, generatedAt: new Date().toISOString() };
+}
 
 function renderCard(item) {
   const article = document.createElement("article");

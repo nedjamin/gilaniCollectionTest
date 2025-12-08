@@ -1,4 +1,0 @@
-[build]
-  command = "node build-gallery.js"
-  publish = "."
-
