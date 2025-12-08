@@ -11,7 +11,13 @@
     <div class="shell shell--wide">
       <div class="site-header__inner">
         <a href="#top" class="logo">Gilani Collection</a>
-        <nav class="nav">
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-nav">
+          <span class="nav-toggle__bar"></span>
+          <span class="nav-toggle__bar"></span>
+          <span class="nav-toggle__bar"></span>
+          <span class="sr-only">Toggle navigation</span>
+        </button>
+        <nav class="nav" id="primary-nav">
           <a href="#work" class="nav__link">Work</a>
           <a href="#about" class="nav__link">About</a>
           <a href="#process" class="nav__link">Process</a>
@@ -34,8 +40,8 @@
       <div class="shell shell--wide hero__grid">
         <div class="hero__text">
           <p class="eyebrow">Sculpture Studio</p>
-          <h1 class="hero__title">Handmade designer pieces in limestone &amp; hebel</h1>
-          <p class="hero__lead">Artisan sculpture made to order. Commissions open for 2026, crafted slowly for homes, galleries, and contemplative public spaces. Based in Melbourne, Australia.</p>
+          <h1 class="hero__title">Handmade designer artisan pieces of limestone and hebel sculpture.</h1>
+          <p class="hero__lead">Crafted slowly for homes, galleries, and contemplative public spaces. Based in Melbourne, Australia.</p>
           <a class="button" href="#work">View Collection</a>
         </div>
         <div class="hero__image">
@@ -51,7 +57,7 @@
         <header class="section__header">
           <span class="section__eyebrow"></span>
           <h2 class="section__title">Selected Works</h2>
-          <p class="section__lede">A curated series of limestone and hebel forms exploring balance, shadow, and the soft geometry of handmade stone.</p>
+          <p class="section__lede">Contemporary abstract sculpture; exploring protection, ritual, and the quiet power of form through asymmetry and minimalism.</p>
         </header>
         <div class="work-grid">
           <article class="work-card">
@@ -116,10 +122,11 @@
         <div class="about__text">
           <span class="section__eyebrow"></span>
           <h2 class="section__title">About the Artist</h2>
-          <p class="about__body">Evelyn Michaelides lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus placerat, nibh sed efficitur fermentum, mauris metus aliquam arcu, id commodo nisl sapien quis justo. Suspendisse potenti. Donec at augue id sapien blandit aliquet nec vitae erat.</p>
-          <p class="about__body">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus placerat, nibh sed efficitur fermentum, mauris metus aliquam arcu, id commodo nisl sapien quis justo. Suspendisse potenti. Donec at augue id sapien blandit aliquet nec vitae erat.</p>
-                  <p class="about__body">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus placerat, nibh sed efficitur fermentum, mauris metus aliquam arcu, id commodo nisl sapien quis justo. Suspendisse potenti. Donec at augue id sapien blandit aliquet nec vitae erat.</p>
-
+          <p class="about__body">Evelyn Michaelides is a sculptor based in Melbourne, Victoria, whose work is influenced by her Mediterranean heritage. Each piece is intuitively hand-carved and handmade, celebrating the relationship between material and form.</p>
+          <p class="about__body">Her sculptures evoke a sense of calm, inviting viewers into a world of aesthetic repose. Drawing inspiration from nature, ancient traditions, and the human experience, Evelyn explores the interplay of light, shadow, and texture. Her works carry a quiet presence, embodying a timeless quality that resonates with both contemporary and classical sensibilities.</p>
+          <p class="about__body">Working primarily with limestone, Evelyn embraces the raw beauty of her medium, allowing each sculpture to emerge naturally through the carving process. This intuitive approach fosters a deep connection between the artist, the material, and the final form.</p>
+          <p class="about__body">Evelyn continues to develop her practice, exploring new ways to express balance, movement, and serenity through sculpture.</p>
+          <p class="about__body">Evelyn was nominated for the prestigious Omnia Art Prize 2025 for her sculpture Poima.</p>
         </div>
         <div class="about__portrait">
           <div class="about__image">
@@ -152,6 +159,12 @@
             <h3 class="pillars__title">Made to Order</h3>
             <p class="pillars__text">Consultation, sketches, and measured lead times for bespoke works.</p>
           </div>
+        </div>
+        <div class="process-note">
+          <p>Each sculpture is remade as close to the dimensions for each customer; and due to the handmade nature of these sculptures, please allow some variations in colour, shapes and sizes. No two pieces look alike.</p>
+          <p>Each piece of limestone has its own special characteristics that make it one of a kind. Your sculpture could have fossils or shells or formations that are unique to each piece.</p>
+          <p>Looking after your sculpture — at first glance it may seem sturdy, but it is delicate and porous, handle with care.</p>
+          <p>Treat it like a priceless work of art first, and a functional piece second.</p>
         </div>
       </div>
     </section>
@@ -202,5 +215,6 @@
       </div>
     </div>
   </footer>
+  <script src="script.js"></script>
 </body>
 </html>

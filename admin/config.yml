@@ -1,0 +1,21 @@
+backend:
+  name: github
+  repo: nedjamin/gilaniCollectionTest
+  branch: main
+  auth_type: implicit
+  app_id: Ov23ctLRhsPKPoaR9GPr   # from GitHub
+
+media_folder: "public/images/uploads"
+public_folder: "/images/uploads"
+
+collections:
+  - name: "gallery"
+    label: "Gallery"
+    folder: "content/gallery"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Description", name: "description", widget: "text" }
+      - { label: "Featured", name: "featured", widget: "boolean", default: false }
+      - { label: "Image", name: "image", widget: "image" }

@@ -11,7 +11,13 @@
     <div class="shell shell--wide">
       <div class="site-header__inner">
         <a href="index.html" class="logo">Gilani Collection</a>
-        <nav class="nav">
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-nav">
+          <span class="nav-toggle__bar"></span>
+          <span class="nav-toggle__bar"></span>
+          <span class="nav-toggle__bar"></span>
+          <span class="sr-only">Toggle navigation</span>
+        </button>
+        <nav class="nav" id="primary-nav">
           <a href="index.html#work" class="nav__link">Work</a>
           <a href="index.html#about" class="nav__link">About</a>
           <a href="index.html#process" class="nav__link">Process</a>
@@ -555,5 +561,6 @@
       </div>
     </div>
   </main>
+  <script src="script.js"></script>
 </body>
 </html>
