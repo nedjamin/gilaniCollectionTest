@@ -1,9 +1,6 @@
 backend:
-  name: github
-  repo: nedjamin/gilaniCollectionTest
+  name: git-gateway
   branch: main
-  auth_type: implicit
-  app_id: Ov23ctLRhsPKPoaR9GPr
 
 media_folder: "public/images/uploads"
 public_folder: "/images/uploads"
