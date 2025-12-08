@@ -41,15 +41,22 @@
         <header class="section__header">
           <span class="section__eyebrow"></span>
           <h1 class="section__title">Full Gallery</h1>
-          <p class="section__lede">Entries published in Decap CMS feed straight into this gallery. Add new pieces in the CMS and they will appear here on the next build.</p>
+          <p class="section__lede">Published works in Sanity feed straight into this gallery. Add new pieces in the Studio and they will appear here after publish.</p>
           <p class="gallery-status" id="gallery-status"></p>
         </header>
         <div class="gallery-grid" id="gallery-grid" aria-live="polite"></div>
-        <p class="gallery-empty" id="gallery-empty" hidden>No works have been published yet. Publish an entry in Decap to populate this gallery.</p>
+        <p class="gallery-empty" id="gallery-empty" hidden>New works coming soon.</p>
       </div>
     </section>
   </main>
   <script src="script.js"></script>
-  <script src="gallery.js"></script>
+  <script type="importmap">
+    {
+      "imports": {
+        "@sanity/client": "https://esm.sh/@sanity/client@5"
+      }
+    }
+  </script>
+  <script type="module" src="gallery.js"></script>
 </body>
 </html>

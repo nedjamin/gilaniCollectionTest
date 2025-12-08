@@ -1,6 +1,4 @@
-const SANITY_PROJECT_ID = "g2n6h8e3";
-const SANITY_DATASET = "gallery";
-const SANITY_API_VERSION = "v2023-10-01";
+import sanityClient from "./sanityClient.js";
 
 document.addEventListener("DOMContentLoaded", () => {
   const grid = document.getElementById("gallery-grid");
@@ -37,12 +35,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const loadGallery = async () => {
     try {
-      const { items, generatedAt } = await fetchSanityGallery();
-      renderItems(items, generatedAt);
+      const items = await fetchSanityGallery();
+      renderItems(items, new Date().toISOString());
     } catch (error) {
       console.error(error);
-      setStatus("Gallery is updating — please check back shortly.");
-      if (emptyState) emptyState.hidden = false;
+      try {
+        const { items, generatedAt } = await fetchLocalGallery();
+        renderItems(items, generatedAt);
+      } catch (localError) {
+        console.error(localError);
+        setStatus("New works coming soon.");
+        if (emptyState) emptyState.hidden = false;
+      }
     }
   };
 
@@ -51,31 +55,24 @@ document.addEventListener("DOMContentLoaded", () => {
 
 async function fetchSanityGallery() {
   const query =
-    '*[_type == "galleryItem"]|order(coalesce(order, 1e12) asc, _updatedAt desc){_id, title, description, "image": image.asset->url, featured, order, _updatedAt}';
-  const url = `https://${SANITY_PROJECT_ID}.api.sanity.io/${SANITY_API_VERSION}/data/query/${SANITY_DATASET}?query=${encodeURIComponent(
-    query
-  )}`;
+    '*[_type == "galleryItem"] | order(order asc, _updatedAt desc) { _id, title, "slug": slug.current, description, featured, order, "imageUrl": image.asset->url }';
 
-  const res = await fetch(url, { cache: "no-store" });
+  try {
+    const items = await sanityClient.fetch(query);
+    console.log("Sanity gallery items:", items);
+    return items;
+  } catch (error) {
+    console.error("Error fetching gallery from Sanity:", error);
+    throw error;
+  }
+}
+
+async function fetchLocalGallery() {
+  const res = await fetch("gallery-data.json", { cache: "no-store" });
   if (!res.ok) {
-    throw new Error(`Sanity request failed (${res.status})`);
+    throw new Error(`Failed to load gallery data (${res.status})`);
   }
-
-  const data = await res.json();
-  if (!data || !data.result) {
-    return { items: [], generatedAt: new Date().toISOString() };
-  }
-
-  const items = data.result.map((item) => ({
-    title: item.title,
-    description: item.description,
-    image: item.image,
-    featured: item.featured,
-    order: item.order,
-    updatedAt: item._updatedAt,
-  }));
-
-  return { items, generatedAt: new Date().toISOString() };
+  return res.json();
 }
 
 function renderCard(item) {
@@ -85,9 +82,9 @@ function renderCard(item) {
   const imageBox = document.createElement("div");
   imageBox.className = "work-card__image";
 
-  if (item.image) {
+  if (item.imageUrl) {
     const img = document.createElement("img");
-    img.src = item.image;
+    img.src = item.imageUrl;
     img.alt = item.title || "Gallery piece";
     imageBox.appendChild(img);
   } else {
