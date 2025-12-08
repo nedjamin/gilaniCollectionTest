@@ -408,6 +408,18 @@ section {
   aspect-ratio: 1;
 }
 
+.gallery-placeholder__label {
+  position: absolute;
+  bottom: 0.9rem;
+  left: 1rem;
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+  color: var(--text);
+  background: rgba(245, 241, 235, 0.9);
+  padding: 0.35rem 0.65rem;
+  border-radius: 999px;
+}
+
 .work-card__image::after {
   content: "";
   position: absolute;
@@ -459,6 +471,17 @@ section {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   gap: 1.4rem;
+}
+
+.gallery-status {
+  margin: 0.75rem 0 0;
+  color: var(--muted);
+}
+
+.gallery-empty {
+  text-align: center;
+  color: var(--muted);
+  margin-top: 1.5rem;
 }
 
 .gallery-cta {
