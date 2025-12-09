@@ -59,58 +59,8 @@
           <h2 class="section__title">Selected Works</h2>
           <p class="section__lede">Contemporary abstract sculpture; exploring protection, ritual, and the quiet power of form through asymmetry and minimalism.</p>
         </header>
-        <div class="work-grid">
-          <article class="work-card">
-            <div class="work-card__image">
-              <img src="Dekatria.jpg" alt="Dekatria sculpture in limestone">
-            </div>
-            <div class="work-card__meta">
-              <h3 class="work-card__title">Dekatria</h3>
-              <p class="work-card__text">Limestone; soft tapering column with carved recess catching light.</p>
-            </div>
-          </article>
-          <article class="work-card">
-            <div class="work-card__image">
-              <img src="Mylonas.jpg" alt="Mylonas sculpture carved from hebel">
-            </div>
-            <div class="work-card__meta">
-              <h3 class="work-card__title">Mylonas</h3>
-              <p class="work-card__text">Hebel; rounded vessel form with a quiet interior shadow.</p>
-            </div>
-          </article>
-          <article class="work-card">
-            <div class="work-card__image">
-              <img src="molpe.jpg" alt="Molpe sculpture in limestone">
-            </div>
-            <div class="work-card__meta">
-              <h3 class="work-card__title">Molpe</h3>
-              <p class="work-card__text">Limestone; slender stacked form with recessed waistline.</p>
-            </div>
-          </article>
-          <article class="work-card">
-            <div class="work-card__image">
-              <img src="poima.jpg" alt="Poima sculpture in limestone">
-            </div>
-            <div class="work-card__meta">
-              <h3 class="work-card__title">Poima</h3>
-              <p class="work-card__text">Limestone; softened rectangular monolith with gentle tilt.</p>
-            </div>
-          </article>
-          <article class="work-card">
-            <div class="gallery-placeholder"></div>
-            <div class="work-card__meta">
-              <h3 class="work-card__title">Soft Relay</h3>
-              <p class="work-card__text">Placeholder; gentle stepped form balancing light and shadow.</p>
-            </div>
-          </article>
-          <article class="work-card">
-            <div class="gallery-placeholder gallery-placeholder--square"></div>
-            <div class="work-card__meta">
-              <h3 class="work-card__title">Stone Quiet</h3>
-              <p class="work-card__text">Placeholder; square relief with a recessed inner contour.</p>
-            </div>
-          </article>
-        </div>
+        <div class="work-grid" id="selected-works" aria-live="polite"></div>
+        <p class="gallery-empty" id="selected-works-empty" hidden>New selected works coming soon.</p>
         <div class="gallery-cta">
           <a class="button button--ghost" href="gallery.html">View Entire Gallery</a>
         </div>
@@ -216,5 +166,13 @@
     </div>
   </footer>
   <script src="script.js"></script>
+  <script type="importmap">
+    {
+      "imports": {
+        "@sanity/client": "https://esm.sh/@sanity/client@5"
+      }
+    }
+  </script>
+  <script type="module" src="selected-works.js"></script>
 </body>
 </html>

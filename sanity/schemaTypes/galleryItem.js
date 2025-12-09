@@ -36,7 +36,7 @@ export default defineType({
     }),
     defineField({
       name: 'featured',
-      title: 'Featured',
+      title: 'Selected Work',
       type: 'boolean',
       initialValue: false,
     }),
