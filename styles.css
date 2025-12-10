@@ -950,22 +950,38 @@ section {
     grid-template-columns: 1fr;
   }
 
+  .lightbox__figure {
+    padding: 0 2.5rem;
+  }
+
+  /* Mobile: position lightbox nav in bottom-right */
   .lightbox__nav {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
+    position: fixed;
+    bottom: 1rem;
+    right: 1rem;
+    width: 42px;
+    height: 42px;
+    font-size: 1.2rem;
+    background: rgba(245, 241, 235, 0.92);
+    z-index: 40;
   }
 
   .lightbox__nav--prev {
-    left: 0.2rem;
+    right: 4rem;
   }
 
-  .lightbox__nav--next {
-    right: 0.2rem;
-  }
-
-  .lightbox__figure {
-    padding: 0 2.5rem;
+  /* Mobile: move close button to bottom-left */
+  .lightbox__close {
+    position: fixed;
+    top: auto;
+    right: auto;
+    bottom: 1rem;
+    left: 1rem;
+    width: 42px;
+    height: 42px;
+    font-size: 1.1rem;
+    background: rgba(245, 241, 235, 0.92);
+    z-index: 40;
   }
 }
 
