@@ -39,14 +39,8 @@ document.addEventListener("DOMContentLoaded", () => {
       renderItems(items, new Date().toISOString());
     } catch (error) {
       console.error(error);
-      try {
-        const { items, generatedAt } = await fetchLocalGallery();
-        renderItems(items, generatedAt);
-      } catch (localError) {
-        console.error(localError);
-        setStatus("New works coming soon.");
-        if (emptyState) emptyState.hidden = false;
-      }
+      setStatus("New works coming soon.");
+      if (emptyState) emptyState.hidden = false;
     }
   };
 
@@ -65,14 +59,6 @@ async function fetchSanityGallery() {
     console.error("Error fetching gallery from Sanity:", error);
     throw error;
   }
-}
-
-async function fetchLocalGallery() {
-  const res = await fetch("gallery-data.json", { cache: "no-store" });
-  if (!res.ok) {
-    throw new Error(`Failed to load gallery data (${res.status})`);
-  }
-  return res.json();
 }
 
 function renderCard(item) {

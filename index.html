@@ -4,13 +4,17 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Gilani Collection — Sculptural Portfolio</title>
+  <link rel="icon" href="gilanilogo.jpg">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <header class="site-header">
     <div class="shell shell--wide">
       <div class="site-header__inner">
-        <a href="#top" class="logo">Gilani Collection</a>
+        <a href="#top" class="logo">
+          <img class="logo__mark" src="gilanilogo.jpg" alt="" aria-hidden="true">
+          <span class="logo__text">Gilani Collection</span>
+        </a>
         <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-nav">
           <span class="nav-toggle__bar"></span>
           <span class="nav-toggle__bar"></span>
@@ -39,16 +43,11 @@
     <section class="hero" id="hero">
       <div class="shell shell--wide hero__grid">
         <div class="hero__text">
-          <p class="eyebrow">Sculpture Studio</p>
-          <h1 class="hero__title">Handmade designer artisan pieces of limestone and hebel sculpture.</h1>
+          <h1 class="hero__title">Handmade artisan sculptures crafted from limestone and hebel.</h1>
           <p class="hero__lead">Crafted slowly for homes, galleries, and contemplative public spaces. Based in Melbourne, Australia.</p>
           <a class="button" href="#work">View Collection</a>
         </div>
-        <div class="hero__image">
-          <div class="hero__photo">
-            <img src="Pixel.png" alt="Limestone sculpture in warm light">
-          </div>
-        </div>
+        <div class="hero__image" aria-hidden="true"></div>
       </div>
     </section>
 
@@ -80,7 +79,7 @@
         </div>
         <div class="about__portrait">
           <div class="about__image">
-            <img src="artist_profile.png" alt="Portrait of Evelyn Michaelides holding a limestone sculpture">
+            <img src="evelynportrait.jpg" alt="Portrait of Evelyn Michaelides holding a limestone sculpture">
           </div>
         </div>
       </div>
@@ -93,21 +92,23 @@
           <h2 class="section__title">Process &amp; Materials</h2>
           <p class="section__lede">Considered, tactile and calm — every stage is finished by hand to preserve the softness of the stone.</p>
         </header>
-        <div class="pillars">
-          <div class="pillars__item">
-            <div class="pillars__icon">●</div>
-            <h3 class="pillars__title">Materials</h3>
-            <p class="pillars__text">Local limestone and hebel blocks, chosen for open grain and warmth.</p>
+        <div class="process-layout">
+          <div class="process-tools">
+            <img src="tools.jpeg" alt="Hand carving tools laid out in the studio">
           </div>
-          <div class="pillars__item">
-            <div class="pillars__icon">▢</div>
-            <h3 class="pillars__title">Process</h3>
-            <p class="pillars__text">Hand-carved with chisels and rifflers, refined through slow sanding.</p>
-          </div>
-          <div class="pillars__item">
-            <div class="pillars__icon">⌖</div>
-            <h3 class="pillars__title">Made to Order</h3>
-            <p class="pillars__text">Consultation, sketches, and measured lead times for bespoke works.</p>
+          <div class="process-stack">
+            <div class="pillars__item">
+              <h3 class="pillars__title">Materials</h3>
+              <p class="pillars__text">Local limestone and hebel blocks, chosen for open grain and warmth.</p>
+            </div>
+            <div class="pillars__item">
+              <h3 class="pillars__title">Process</h3>
+              <p class="pillars__text">Hand-carved with chisels and rifflers, refined through slow sanding.</p>
+            </div>
+            <div class="pillars__item">
+              <h3 class="pillars__title">Made to Order</h3>
+              <p class="pillars__text">Consultation, sketches, and measured lead times for bespoke works.</p>
+            </div>
           </div>
         </div>
         <div class="process-note">
@@ -126,7 +127,7 @@
           <h2 class="section__title">Commissions &amp; Enquiries</h2>
           <p class="section__lede">For available works, private commissions, or collaborations, please send a note. You will receive a thoughtful reply within a few days.</p>
         </header>
-        <form class="form">
+        <form class="form" action="mailto:nedbenjamin1@hotmail.com" method="post" enctype="text/plain">
           <div class="form__row">
             <label class="form__label" for="name">Name</label>
             <input class="form__input" type="text" id="name" name="name" placeholder="Your name">
@@ -134,14 +135,6 @@
           <div class="form__row">
             <label class="form__label" for="email">Email</label>
             <input class="form__input" type="email" id="email" name="email" placeholder="you@example.com">
-          </div>
-          <div class="form__row">
-            <label class="form__label" for="type">Enquiry type</label>
-            <select class="form__input" id="type" name="type">
-              <option>Available work</option>
-              <option>Commission</option>
-              <option>Collaboration</option>
-            </select>
           </div>
           <div class="form__row">
             <label class="form__label" for="message">Message</label>
