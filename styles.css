@@ -123,10 +123,6 @@ section {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  font-size: 1.1rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  font-weight: 600;
   white-space: nowrap;
 }
 
@@ -138,7 +134,23 @@ section {
 }
 
 .logo__text {
-  display: inline-block;
+  display: flex;
+  flex-direction: column;
+  line-height: 1.1;
+}
+
+.logo__title {
+  font-size: 1rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.logo__subtitle {
+  font-size: 1rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-weight: 600;
 }
 
 .site-header--hidden {
@@ -275,8 +287,8 @@ section {
 .hero::before {
   position: absolute;
   inset: 0;
-  background: rgba(255, 255, 255, 0.04);
-  backdrop-filter: blur(2px);
+  background: transparent;
+  backdrop-filter: none;
   pointer-events: none;
 }
 
@@ -294,6 +306,7 @@ section {
 }
 
 .hero__title {
+  font-family: "Manrope", "Helvetica Neue", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
   font-size: clamp(2.4rem, 4vw, 3.4rem);
   letter-spacing: 0.06em;
   margin: 0 0 1rem;
@@ -627,7 +640,7 @@ section {
 .lightbox__close {
   position: absolute;
   top: 0.5rem;
-  right: 0.5rem;
+  right: 0.2rem;
   width: 36px;
   height: 36px;
   border-radius: 50%;
@@ -944,11 +957,11 @@ section {
   }
 
   .lightbox__nav--prev {
-    left: 0.75rem;
+    left: 0.2rem;
   }
 
   .lightbox__nav--next {
-    right: 0.75rem;
+    right: 0.2rem;
   }
 
   .lightbox__figure {
