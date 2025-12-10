@@ -535,6 +535,7 @@ section {
   text-align: center;
 }
 
+
 .gallery-page .section__title {
   text-transform: uppercase;
 }
@@ -1031,6 +1032,10 @@ section {
     letter-spacing: 0.12em;
     font-size: 0.95rem;
     gap: 0.35rem;
+  }
+
+  .hero__title {
+    font-size: 2rem;
   }
 
   .nav {
