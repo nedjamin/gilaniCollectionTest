@@ -542,6 +542,14 @@ section {
   display: flex;
 }
 
+.lightbox.is-open {
+  display: flex;
+}
+
+.lightbox[hidden] {
+  display: none;
+}
+
 .lightbox__content {
   position: relative;
   display: grid;

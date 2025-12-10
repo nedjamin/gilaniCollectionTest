@@ -53,6 +53,19 @@
       </div>
     </section>
   </main>
+  <div class="lightbox" id="gallery-lightbox" aria-modal="true" role="dialog" aria-label="Gallery lightbox" hidden>
+    <div class="lightbox__content">
+      <button class="lightbox__close" type="button" id="lb-close" aria-label="Close">×</button>
+      <button class="lightbox__nav lightbox__nav--prev" type="button" id="lb-prev" aria-label="Previous">‹</button>
+      <figure class="lightbox__figure">
+        <div class="lightbox__image" id="lb-image-box">
+          <img id="lb-image" src="" alt="">
+        </div>
+        <figcaption id="lb-caption"></figcaption>
+      </figure>
+      <button class="lightbox__nav lightbox__nav--next" type="button" id="lb-next" aria-label="Next">›</button>
+    </div>
+  </div>
   <script src="script.js"></script>
   <script type="importmap">
     {

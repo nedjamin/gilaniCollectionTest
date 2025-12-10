@@ -4,6 +4,15 @@ document.addEventListener("DOMContentLoaded", () => {
   const grid = document.getElementById("gallery-grid");
   const emptyState = document.getElementById("gallery-empty");
   const status = document.getElementById("gallery-status");
+  const lightbox = document.getElementById("gallery-lightbox");
+  const lbImage = document.getElementById("lb-image");
+  const lbCaption = document.getElementById("lb-caption");
+  const lbPrev = document.getElementById("lb-prev");
+  const lbNext = document.getElementById("lb-next");
+  const lbClose = document.getElementById("lb-close");
+
+  let galleryItems = [];
+  let activeIndex = 0;
 
   if (!grid) return;
 
@@ -30,7 +39,8 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     grid.innerHTML = "";
-    items.forEach((item) => grid.appendChild(renderCard(item)));
+    galleryItems = items;
+    items.forEach((item, idx) => grid.appendChild(renderCard(item, idx, openLightbox)));
   };
 
   const loadGallery = async () => {
@@ -43,6 +53,59 @@ document.addEventListener("DOMContentLoaded", () => {
       if (emptyState) emptyState.hidden = false;
     }
   };
+
+  const openLightbox = (index) => {
+    if (!lightbox || !lbImage || !lbCaption) return;
+    const item = galleryItems[index];
+    if (!item) return;
+    activeIndex = index;
+    lbImage.src = item.imageUrl || "";
+    lbImage.alt = item.title || "Gallery piece";
+    lbCaption.textContent = item.title
+      ? `${item.title}${item.description ? ` — ${item.description}` : ""}`
+      : item.description || "";
+    lightbox.hidden = false;
+    lightbox.classList.add("is-open");
+  };
+
+  const closeLightbox = () => {
+    if (!lightbox) return;
+    lightbox.classList.remove("is-open");
+    lightbox.hidden = true;
+  };
+
+  const showNext = () => {
+    if (!galleryItems.length) return;
+    openLightbox((activeIndex + 1) % galleryItems.length);
+  };
+
+  const showPrev = () => {
+    if (!galleryItems.length) return;
+    openLightbox((activeIndex - 1 + galleryItems.length) % galleryItems.length);
+  };
+
+  if (lbPrev) lbPrev.addEventListener("click", showPrev);
+  if (lbNext) lbNext.addEventListener("click", showNext);
+  if (lbClose) lbClose.addEventListener("click", closeLightbox);
+
+  if (lightbox) {
+    lightbox.addEventListener("click", (evt) => {
+      if (evt.target === lightbox) {
+        closeLightbox();
+      }
+    });
+  }
+
+  document.addEventListener("keydown", (evt) => {
+    if (!lightbox || lightbox.hidden) return;
+    if (evt.key === "Escape") {
+      closeLightbox();
+    } else if (evt.key === "ArrowRight") {
+      showNext();
+    } else if (evt.key === "ArrowLeft") {
+      showPrev();
+    }
+  });
 
   loadGallery();
 });
@@ -61,9 +124,12 @@ async function fetchSanityGallery() {
   }
 }
 
-function renderCard(item) {
+function renderCard(item, index, openLightbox) {
   const article = document.createElement("article");
   article.className = "work-card";
+  article.tabIndex = 0;
+  article.setAttribute("role", "button");
+  article.setAttribute("aria-label", item.title || "Gallery piece");
 
   const imageBox = document.createElement("div");
   imageBox.className = "work-card__image";
@@ -94,6 +160,16 @@ function renderCard(item) {
 
   meta.append(title, description);
   article.append(imageBox, meta);
+
+  if (typeof openLightbox === "function") {
+    article.addEventListener("click", () => openLightbox(index));
+    article.addEventListener("keypress", (evt) => {
+      if (evt.key === "Enter" || evt.key === " ") {
+        evt.preventDefault();
+        openLightbox(index);
+      }
+    });
+  }
 
   return article;
 }
