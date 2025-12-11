@@ -59,3 +59,43 @@ document.addEventListener("DOMContentLoaded", () => {
     { passive: true }
   );
 });
+
+// Form submit animation + Formspree fetch (no redirect)
+document.addEventListener("DOMContentLoaded", () => {
+  const form = document.querySelector("form.form");
+  const submitBtn = form ? form.querySelector(".button--submit") : null;
+  if (!form || !submitBtn) return;
+
+  const endpoint = form.getAttribute("action");
+
+  form.addEventListener("submit", async (evt) => {
+    evt.preventDefault();
+    if (submitBtn.disabled) return;
+
+    submitBtn.classList.add("is-sent");
+    submitBtn.disabled = true;
+
+    const formData = new FormData(form);
+
+    try {
+      const res = await fetch(endpoint, {
+        method: "POST",
+        headers: { Accept: "application/json" },
+        body: formData,
+      });
+
+      if (!res.ok) {
+        throw new Error(`Form submit failed (${res.status})`);
+      }
+
+      form.reset();
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setTimeout(() => {
+        submitBtn.classList.remove("is-sent");
+        submitBtn.disabled = false;
+      }, 1200);
+    }
+  });
+});
