@@ -139,6 +139,15 @@ function renderCard(item, index, openLightbox) {
     img.src = item.imageUrl;
     img.alt = item.title || "Gallery piece";
     imageBox.appendChild(img);
+
+    const expand = document.createElement("span");
+    expand.className = "work-card__expand";
+    const expandIcon = document.createElement("img");
+    expandIcon.src = "enlargesymbol.png";
+    expandIcon.alt = "";
+    expandIcon.setAttribute("aria-hidden", "true");
+    expand.appendChild(expandIcon);
+    imageBox.appendChild(expand);
   } else {
     imageBox.classList.add("gallery-placeholder");
     const label = document.createElement("span");
