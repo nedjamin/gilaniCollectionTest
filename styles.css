@@ -813,6 +813,10 @@ section {
   object-fit: cover;
 }
 
+.process-tools--mobile {
+  display: none;
+}
+
 .process-note {
   margin-top: 1.75rem;
   padding: 1.1rem 1.25rem;
@@ -1075,5 +1079,18 @@ section {
 
   .placeholder__label {
     font-size: 0.8rem;
+  }
+
+  .gallery-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .process-layout .process-tools {
+    display: none;
+  }
+
+  .process-tools--mobile {
+    display: flex;
+    margin: 1.2rem 0 1.4rem;
   }
 }
