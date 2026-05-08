@@ -112,7 +112,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 async function fetchSanityGallery() {
   const query =
-    '*[_type == "galleryItem"] | order(order asc, _updatedAt desc) { _id, title, "slug": slug.current, description, featured, order, "imageUrl": image.asset->url }';
+    '*[_type == "galleryItem"] | order(order asc, _updatedAt desc) { _id, title, "slug": slug.current, description, dimensions, featured, order, "imageUrl": image.asset->url }';
 
   try {
     const items = await sanityClient.fetch(query);
@@ -163,11 +163,17 @@ function renderCard(item, index, openLightbox) {
   title.className = "work-card__title";
   title.textContent = item.title || "Untitled";
 
+  const dimensions = document.createElement("p");
+  dimensions.className = "work-card__subtitle";
+  dimensions.textContent = item.dimensions || "";
+
   const description = document.createElement("p");
   description.className = "work-card__text";
   description.textContent = item.description || "Details coming soon.";
 
-  meta.append(title, description);
+  meta.append(title);
+  if (item.dimensions) meta.append(dimensions);
+  meta.append(description);
   article.append(imageBox, meta);
 
   if (typeof openLightbox === "function") {

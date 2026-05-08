@@ -28,6 +28,12 @@ export default defineType({
       rows: 3,
     }),
     defineField({
+      name: 'dimensions',
+      title: 'Dimensions',
+      type: 'string',
+      description: 'Artwork dimensions, for example: 40 x 18 x 12 cm.',
+    }),
+    defineField({
       name: 'image',
       title: 'Image',
       type: 'image',
@@ -51,7 +57,7 @@ export default defineType({
     select: {
       title: 'title',
       media: 'image',
-      subtitle: 'description',
+      subtitle: 'dimensions',
     },
   },
 })
