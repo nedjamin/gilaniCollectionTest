@@ -61,9 +61,9 @@ document.addEventListener("DOMContentLoaded", () => {
     activeIndex = index;
     lbImage.src = item.imageUrl || "";
     lbImage.alt = item.title || "Gallery piece";
-    lbCaption.textContent = item.title
-      ? `${item.title}${item.description ? ` — ${item.description}` : ""}`
-      : item.description || "";
+    lbCaption.textContent = [item.title, item.description, item.dimensions]
+      .filter(Boolean)
+      .join(" — ");
     lightbox.hidden = false;
     lightbox.classList.add("is-open");
   };
