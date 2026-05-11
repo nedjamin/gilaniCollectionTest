@@ -1,4 +1,11 @@
 document.addEventListener("DOMContentLoaded", () => {
+  const currentYear = document.querySelector("[data-current-year]");
+  if (currentYear) {
+    currentYear.textContent = String(new Date().getFullYear());
+  }
+});
+
+document.addEventListener("DOMContentLoaded", () => {
   const navToggle = document.querySelector(".nav-toggle");
   const nav = document.querySelector("#primary-nav");
   const header = document.querySelector(".site-header");
