@@ -171,9 +171,8 @@ function renderCard(item, index, openLightbox) {
   description.className = "work-card__text";
   description.textContent = item.description || "Details coming soon.";
 
-  meta.append(title);
+  meta.append(title, description);
   if (item.dimensions) meta.append(dimensions);
-  meta.append(description);
   article.append(imageBox, meta);
 
   if (typeof openLightbox === "function") {
