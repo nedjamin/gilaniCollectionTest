@@ -13,6 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let galleryItems = [];
   let activeIndex = 0;
+  let lastFocusedElement = null;
 
   if (!grid) return;
 
@@ -59,19 +60,25 @@ document.addEventListener("DOMContentLoaded", () => {
     const item = galleryItems[index];
     if (!item) return;
     activeIndex = index;
-    lbImage.src = item.imageUrl || "";
+    lbImage.src = withImageParams(item.imageUrl, 1600) || "";
     lbImage.alt = item.title || "Gallery piece";
     lbCaption.textContent = [item.title, item.description, item.dimensions]
       .filter(Boolean)
       .join(" — ");
+    lastFocusedElement = document.activeElement;
     lightbox.hidden = false;
     lightbox.classList.add("is-open");
+    if (lbClose) lbClose.focus();
   };
 
   const closeLightbox = () => {
     if (!lightbox) return;
     lightbox.classList.remove("is-open");
     lightbox.hidden = true;
+    if (lastFocusedElement && typeof lastFocusedElement.focus === "function") {
+      lastFocusedElement.focus();
+    }
+    lastFocusedElement = null;
   };
 
   const showNext = () => {
@@ -104,11 +111,28 @@ document.addEventListener("DOMContentLoaded", () => {
       showNext();
     } else if (evt.key === "ArrowLeft") {
       showPrev();
+    } else if (evt.key === "Tab") {
+      const focusable = [lbPrev, lbNext, lbClose].filter(Boolean);
+      if (!focusable.length) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (evt.shiftKey && document.activeElement === first) {
+        evt.preventDefault();
+        last.focus();
+      } else if (!evt.shiftKey && document.activeElement === last) {
+        evt.preventDefault();
+        first.focus();
+      }
     }
   });
 
   loadGallery();
 });
+
+function withImageParams(url, width) {
+  if (!url) return url;
+  return `${url}?w=${width}&auto=format`;
+}
 
 async function fetchSanityGallery() {
   const query =
@@ -136,8 +160,10 @@ function renderCard(item, index, openLightbox) {
 
   if (item.imageUrl) {
     const img = document.createElement("img");
-    img.src = item.imageUrl;
+    img.src = withImageParams(item.imageUrl, 640);
     img.alt = item.title || "Gallery piece";
+    img.loading = "lazy";
+    img.decoding = "async";
     imageBox.appendChild(img);
 
     const expand = document.createElement("span");
@@ -177,7 +203,7 @@ function renderCard(item, index, openLightbox) {
 
   if (typeof openLightbox === "function") {
     article.addEventListener("click", () => openLightbox(index));
-    article.addEventListener("keypress", (evt) => {
+    article.addEventListener("keydown", (evt) => {
       if (evt.key === "Enter" || evt.key === " ") {
         evt.preventDefault();
         openLightbox(index);

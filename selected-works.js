@@ -46,8 +46,10 @@ function renderCard(item) {
 
   if (item.imageUrl) {
     const img = document.createElement("img");
-    img.src = item.imageUrl;
+    img.src = `${item.imageUrl}?w=800&auto=format`;
     img.alt = item.title || "Selected work";
+    img.loading = "lazy";
+    img.decoding = "async";
     imageBox.appendChild(img);
   } else {
     imageBox.classList.add("gallery-placeholder");

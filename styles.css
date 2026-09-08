@@ -273,7 +273,7 @@ section {
   overflow: hidden;
   padding-top: calc(min(12vh, 8rem) + 1rem);
   background: var(--bg);
-  background-image: url("gemini-hero.png");
+  background-image: url("gemini-hero.jpg");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
