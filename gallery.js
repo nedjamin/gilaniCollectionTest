@@ -42,6 +42,21 @@ document.addEventListener("DOMContentLoaded", () => {
     grid.innerHTML = "";
     galleryItems = items;
     items.forEach((item, idx) => grid.appendChild(renderCard(item, idx, openLightbox)));
+    prefetchLightboxImages(items);
+  };
+
+  const prefetchLightboxImages = (items) => {
+    const urls = items.map((item) => withImageParams(item.imageUrl, 1600)).filter(Boolean);
+    let i = 0;
+    const prefetchNext = () => {
+      if (i >= urls.length) return;
+      const img = new Image();
+      img.onload = img.onerror = prefetchNext;
+      img.src = urls[i];
+      i += 1;
+    };
+    const schedule = window.requestIdleCallback || ((cb) => setTimeout(cb, 200));
+    schedule(prefetchNext);
   };
 
   const loadGallery = async () => {
