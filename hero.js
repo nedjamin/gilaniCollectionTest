@@ -17,7 +17,9 @@ document.addEventListener("DOMContentLoaded", () => {
       if (data.title && title) title.textContent = data.title;
       if (data.lead && lead) lead.textContent = data.lead;
       if (data.imageUrl) {
-        hero.style.backgroundImage = `url("${data.imageUrl}?w=2000&auto=format")`;
+        const dpr = Math.min(window.devicePixelRatio || 1, 2);
+        const width = Math.min(Math.round(window.innerWidth * dpr), 3200);
+        hero.style.backgroundImage = `url("${data.imageUrl}?w=${width}&auto=format")`;
       }
     } catch (error) {
       console.error("Error fetching hero content from Sanity:", error);
