@@ -29,6 +29,7 @@
     gtag('config', 'G-1M70ZBW7RP');
   </script>
   <link rel="stylesheet" href="styles.css">
+  <!-- build:gallery-jsonld -->
 </head>
 <body>
   <header class="site-header">
@@ -74,7 +75,7 @@
           <p class="section__lede">A living archive of works created — browse the catalogue below.</p>
           <p class="gallery-status" id="gallery-status"></p>
         </header>
-        <div class="gallery-grid" id="gallery-grid" aria-live="polite"></div>
+        <div class="gallery-grid" id="gallery-grid" aria-live="polite"><!-- build:gallery-grid --></div>
         <p class="gallery-empty" id="gallery-empty" hidden>New works coming soon.</p>
       </div>
     </section>
@@ -100,6 +101,7 @@
       }
     }
   </script>
+  <!-- build:gallery-data -->
   <script type="module" src="gallery.js"></script>
 </body>
 </html>
