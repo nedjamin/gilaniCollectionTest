@@ -1,0 +1,16 @@
+# Cloudflare Pages response headers. https://developers.cloudflare.com/pages/configuration/headers/
+#
+# Strict-Transport-Security is deliberately short while we confirm nothing on
+# evelynmichaelides.com or its subdomains needs plain HTTP. After a clean week, change to:
+#   Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
+# (preload is very hard to undo, so it comes last).
+#
+# The CSP is in Report-Only mode: violations are logged in the browser console but
+# nothing is blocked. Once the console is clean on every page (home, gallery,
+# lightbox, a work page, form submit), rename the header to Content-Security-Policy.
+# The sha256 values are the two inline <script> blocks (Google Analytics setup and
+# the import map). If either script changes, its hash must change too.
+/*
+  X-Frame-Options: DENY
+  Strict-Transport-Security: max-age=300
+  Content-Security-Policy-Report-Only: default-src 'self'; script-src 'self' 'sha256-pm5zqH2SATWhDD6w27/p3P9iHHeleuxlGBPcnvoZXBU=' 'sha256-ewPEDAZCvbKvtj0tyq29+wjz0a6/n0q1/P7PWE8c7R0=' https://www.googletagmanager.com https://esm.sh; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://cdn.sanity.io https://*.google-analytics.com https://*.googletagmanager.com https://*.g.doubleclick.net https://*.google.com; connect-src 'self' https://*.apicdn.sanity.io https://*.api.sanity.io https://esm.sh https://formspree.io https://*.google-analytics.com https://analytics.google.com https://*.analytics.google.com https://*.googletagmanager.com https://*.g.doubleclick.net https://*.google.com; form-action 'self' https://formspree.io; frame-ancestors 'none'; base-uri 'self'; object-src 'none'
