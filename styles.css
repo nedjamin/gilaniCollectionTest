@@ -273,10 +273,38 @@ section {
   overflow: hidden;
   padding-top: calc(min(12vh, 8rem) + 1rem);
   background: var(--bg);
-  background-image: url("gemini-hero.jpg");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+}
+
+/* Hero photo: a real <picture> (AVIF/WebP, high fetch priority) instead of a CSS
+   background, so the browser finds it early. Positioned to match the old
+   background-size: cover / background-position: center exactly. */
+.hero__bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* <picture> wrappers around existing images must not add a box of their own, so the
+   images keep laying out exactly as they did before they were wrapped. */
+.logo picture,
+.about__image picture,
+.process-tools picture {
+  display: contents;
+}
+
+/* <source> never renders, but without this it would become an empty flex item
+   (and pick up the container's gap) once its <picture> is display: contents. */
+picture > source {
+  display: none;
+}
+
+.hero__bg img {
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+  object-position: center;
 }
 
 .hero::before,

@@ -53,6 +53,19 @@ node scripts/preview.mjs        # serves dist/ like Cloudflare Pages at http://l
 
 `preview.mjs` reproduces Pages' clean URLs, its 404 behaviour and `_headers`. Opening the un-built source files (e.g. VS Code Live Server) still works, but cards then load from Sanity in the browser. Sanity only allows that from origins listed in its CORS settings (currently the live domains, `gilanicollectiontest.pages.dev` and `localhost:3333`).
 
+## Images
+
+The original photos (`gemini-hero.jpg`, `evelynportrait.jpg`, `tools.jpeg`, `gilanilogo.jpg`) stay where they are and act as fallbacks. Browsers load the AVIF/WebP versions from `images/` instead:
+
+| Image | Variants (`images/…`) | Notes |
+|---|---|---|
+| Hero | `hero/gemini-hero-{1920,2843}.{avif,webp}` | Full width kept on purpose: the hero is 2.4:1 cropped with `cover`, so phones display it about 1,750 CSS px wide. `sizes="max(100vw, 1750px)"`. |
+| Portrait | `about/evelynportrait-{540,1080}` | |
+| Tools | `process/tools-{585,1170}` | Both copies (mobile/desktop) use identical `srcset`/`sizes`, so only one file downloads. |
+| Logo | `logo/gilanilogo-{36,72,108}` | Shown at 36 px (1×/2×/3×). |
+
+If you replace one of these photos, re-export the variants at the same widths and file names (AVIF roughly quality 55–60, WebP roughly 80). Any encoder works, e.g. Squoosh or `sharp`. The build doesn't encode images.
+
 ## Things to keep in sync by hand
 
 - **Site header and footer** appear in `index.html`, `gallery.html`, `404.html` and `templates/work.html`. `404.html` and the template use root-absolute links (`/styles.css`, `/#work`) because they're served at any depth.
