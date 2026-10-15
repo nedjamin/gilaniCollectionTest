@@ -78,7 +78,11 @@
     <div class="shell shell--wide">
       <div class="site-header__inner">
         <a href="#top" class="logo">
-          <img class="logo__mark" src="gilanilogo.jpg" alt="" aria-hidden="true">
+          <picture>
+            <source type="image/avif" srcset="images/logo/gilanilogo-36.avif 1x, images/logo/gilanilogo-72.avif 2x, images/logo/gilanilogo-108.avif 3x">
+            <source type="image/webp" srcset="images/logo/gilanilogo-36.webp 1x, images/logo/gilanilogo-72.webp 2x, images/logo/gilanilogo-108.webp 3x">
+            <img class="logo__mark" src="gilanilogo.jpg" alt="" aria-hidden="true" width="36" height="36">
+          </picture>
           <span class="logo__text">
             <span class="logo__title">Gilani Collection</span>
             <span class="logo__subtitle">Evelyn Michaelides</span>
@@ -110,6 +114,11 @@
 
   <main id="top">
     <section class="hero" id="hero">
+      <picture class="hero__bg">
+        <source type="image/avif" srcset="images/hero/gemini-hero-1920.avif 1920w, images/hero/gemini-hero-2843.avif 2843w" sizes="max(100vw, 1750px)">
+        <source type="image/webp" srcset="images/hero/gemini-hero-1920.webp 1920w, images/hero/gemini-hero-2843.webp 2843w" sizes="max(100vw, 1750px)">
+        <img src="gemini-hero.jpg" alt="" width="2843" height="1184" fetchpriority="high" decoding="async">
+      </picture>
       <div class="shell shell--wide hero__grid">
         <div class="hero__text">
           <h1 class="hero__title">Handmade artisan sculptures crafted from limestone and hebel.</h1>
@@ -148,7 +157,11 @@
         </div>
         <div class="about__portrait">
           <div class="about__image">
-            <img src="evelynportrait.jpg" alt="Portrait of Evelyn Michaelides holding a limestone sculpture">
+            <picture>
+              <source type="image/avif" srcset="images/about/evelynportrait-540.avif 540w, images/about/evelynportrait-1080.avif 1080w" sizes="(max-width: 900px) calc(100vw - 3rem), 495px">
+              <source type="image/webp" srcset="images/about/evelynportrait-540.webp 540w, images/about/evelynportrait-1080.webp 1080w" sizes="(max-width: 900px) calc(100vw - 3rem), 495px">
+              <img src="evelynportrait.jpg" alt="Portrait of Evelyn Michaelides holding a limestone sculpture" width="1080" height="1328" loading="lazy" decoding="async">
+            </picture>
           </div>
         </div>
       </div>
@@ -160,12 +173,20 @@
           <span class="section__eyebrow"></span>
           <h2 class="section__title">Process &amp; Materials</h2>
           <div class="process-tools process-tools--mobile">
-            <img src="tools.jpeg" alt="Hand carving tools laid out in the studio">
+            <picture>
+              <source type="image/avif" srcset="images/process/tools-585.avif 585w, images/process/tools-1170.avif 1170w" sizes="(max-width: 900px) calc(100vw - 5rem), 720px">
+              <source type="image/webp" srcset="images/process/tools-585.webp 585w, images/process/tools-1170.webp 1170w" sizes="(max-width: 900px) calc(100vw - 5rem), 720px">
+              <img src="tools.jpeg" alt="Hand carving tools laid out in the studio" width="1170" height="1442" loading="lazy" decoding="async">
+            </picture>
           </div>
         </header>
         <div class="process-layout">
           <div class="process-tools">
-            <img src="tools.jpeg" alt="Hand carving tools laid out in the studio">
+            <picture>
+              <source type="image/avif" srcset="images/process/tools-585.avif 585w, images/process/tools-1170.avif 1170w" sizes="(max-width: 900px) calc(100vw - 5rem), 720px">
+              <source type="image/webp" srcset="images/process/tools-585.webp 585w, images/process/tools-1170.webp 1170w" sizes="(max-width: 900px) calc(100vw - 5rem), 720px">
+              <img src="tools.jpeg" alt="Hand carving tools laid out in the studio" width="1170" height="1442" loading="lazy" decoding="async">
+            </picture>
           </div>
           <div class="process-stack">
             <div class="pillars__item">
