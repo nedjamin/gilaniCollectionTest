@@ -1,5 +1,7 @@
-import sanityClient from "./sanityClient.js";
-
+// Homepage "Selected Works".
+// In production the cards are already in the HTML (rendered by scripts/build.mjs),
+// so this script does nothing. It only fetches from Sanity at runtime when the page
+// is served un-built (e.g. opening the source files locally).
 const SELECTED_QUERY =
   '*[_type == "galleryItem" && featured == true] | order(order asc, _updatedAt desc) { _id, title, "slug": slug.current, description, featured, order, "imageUrl": image.asset->url }';
 
@@ -7,7 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const grid = document.getElementById("selected-works");
   const emptyState = document.getElementById("selected-works-empty");
 
-  if (!grid) return;
+  if (!grid || grid.dataset.prerendered === "true") return;
 
   const showEmpty = () => {
     if (emptyState) emptyState.hidden = false;
@@ -25,6 +27,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const loadSelected = async () => {
     try {
+      const { default: sanityClient } = await import("./sanityClient.js");
       const items = await sanityClient.fetch(SELECTED_QUERY);
       console.log("Sanity selected works:", items);
       renderItems(items);
@@ -37,6 +40,7 @@ document.addEventListener("DOMContentLoaded", () => {
   loadSelected();
 });
 
+// Keep in sync with selectedCard() in scripts/build.mjs.
 function renderCard(item) {
   const article = document.createElement("article");
   article.className = "work-card";

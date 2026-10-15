@@ -1,5 +1,8 @@
-import sanityClient from "./sanityClient.js";
-
+// Full gallery page.
+// In production the cards are already in the HTML (rendered by scripts/build.mjs) as
+// links to /works/<slug>, with the lightbox data embedded in #gallery-data. This script
+// only adds the lightbox on top. It fetches from Sanity at runtime only when the page is
+// served un-built (e.g. opening the source files locally).
 document.addEventListener("DOMContentLoaded", () => {
   const grid = document.getElementById("gallery-grid");
   const emptyState = document.getElementById("gallery-empty");
@@ -59,7 +62,30 @@ document.addEventListener("DOMContentLoaded", () => {
     schedule(prefetchNext);
   };
 
+  // Attach the lightbox to cards that are already in the HTML.
+  const hydrate = (items) => {
+    setStatus(
+      `Updated ${new Date().toLocaleDateString(undefined, {
+        year: "numeric",
+        month: "short",
+        day: "numeric",
+      })}`
+    );
+    galleryItems = items;
+    grid.querySelectorAll(".work-card").forEach((card, idx) => bindCard(card, idx, openLightbox));
+    if (items.length) prefetchLightboxImages(items);
+  };
+
   const loadGallery = async () => {
+    const prerendered = document.getElementById("gallery-data");
+    if (grid.dataset.prerendered === "true" && prerendered) {
+      try {
+        hydrate(JSON.parse(prerendered.textContent));
+        return;
+      } catch (error) {
+        console.error("Could not read prerendered gallery data:", error);
+      }
+    }
     try {
       const items = await fetchSanityGallery();
       renderItems(items, new Date().toISOString());
@@ -154,6 +180,7 @@ async function fetchSanityGallery() {
     '*[_type == "galleryItem"] | order(order asc, _updatedAt desc) { _id, title, "slug": slug.current, description, dimensions, featured, order, "imageUrl": image.asset->url }';
 
   try {
+    const { default: sanityClient } = await import("./sanityClient.js");
     const items = await sanityClient.fetch(query);
     console.log("Sanity gallery items:", items);
     return items;
@@ -163,11 +190,29 @@ async function fetchSanityGallery() {
   }
 }
 
+// A card is a real link to the artwork's own page (/works/<slug>), so it works without
+// JavaScript and crawlers can follow it. With JavaScript, a plain click (or Enter/Space)
+// opens the lightbox instead, as before; Cmd/Ctrl/middle-click still opens the page.
+function bindCard(card, index, openLightbox) {
+  if (typeof openLightbox !== "function") return;
+  card.addEventListener("click", (evt) => {
+    if (evt.button !== 0 || evt.metaKey || evt.ctrlKey || evt.shiftKey || evt.altKey) return;
+    evt.preventDefault();
+    openLightbox(index);
+  });
+  card.addEventListener("keydown", (evt) => {
+    if (evt.key === " ") {
+      evt.preventDefault();
+      openLightbox(index);
+    }
+  });
+}
+
+// Keep in sync with galleryCard() in scripts/build.mjs.
 function renderCard(item, index, openLightbox) {
-  const article = document.createElement("article");
+  const article = document.createElement("a");
   article.className = "work-card";
-  article.tabIndex = 0;
-  article.setAttribute("role", "button");
+  if (item.slug) article.href = `/works/${item.slug}`;
   article.setAttribute("aria-label", item.title || "Gallery piece");
 
   const imageBox = document.createElement("div");
@@ -215,16 +260,7 @@ function renderCard(item, index, openLightbox) {
   meta.append(title, description);
   if (item.dimensions) meta.append(dimensions);
   article.append(imageBox, meta);
-
-  if (typeof openLightbox === "function") {
-    article.addEventListener("click", () => openLightbox(index));
-    article.addEventListener("keydown", (evt) => {
-      if (evt.key === "Enter" || evt.key === " ") {
-        evt.preventDefault();
-        openLightbox(index);
-      }
-    });
-  }
+  bindCard(article, index, openLightbox);
 
   return article;
 }
